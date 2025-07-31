@@ -1,6 +1,6 @@
 # Rechan CLI
 
-![Qt-based CLI Tool](https://img.shields.io/badge/Qt-6.7.0-green)
+![Qt-based CLI Tool](https://img.shields.io/badge/Qt-5.0.0-green)
 ![C++17](https://img.shields.io/badge/C%2B%2B-17-blue)
 ![Version](https://img.shields.io/badge/version-1.2.0-orange)
 
@@ -24,7 +24,7 @@ Rechan CLI is a Qt-based command-line tool for creating, compiling, and managing
 
 ### Prerequisites
 - [CMake](https://cmake.org/) (v3.15+)
-- [Qt](https://www.qt.io/) (v6.7.0)
+- [Qt](https://www.qt.io/) (v5.0.0)
 - [vcpkg](https://vcpkg.io/) (for dependency management)
 - C++ compiler (MSVC/GCC/Clang)
 
@@ -35,7 +35,7 @@ cd rechan-cli
 mkdir build
 cd build
 cmake .. -DCMAKE_TOOLCHAIN_FILE="path/to/vcpkg/scripts/buildsystems/vcpkg.cmake" \
-         -DCMAKE_PREFIX_PATH="path/to/Qt/6.7.0/msvc2019_64"
+         -DCMAKE_PREFIX_PATH="path/to/Qt/v5.0.0/msvc2019_64"
 cmake --build . --config Release
 ```
 
