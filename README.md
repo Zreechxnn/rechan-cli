@@ -82,7 +82,7 @@ rechan init controller MyController
 
 **Create Laravel project:**
 ```bash
-rechan create laravel my_app --laravel-version=10.*
+rechan create laravel:^10 app
 ```
 
 ## Project Structure
