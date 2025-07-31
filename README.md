@@ -94,7 +94,6 @@ rechan create laravel:^10 app
 ```
 
 ## Project Structure
-
 ```
 rechan-cli/
 ├── CMakeLists.txt
@@ -103,8 +102,12 @@ rechan-cli/
 ├── command_dispatcher.hpp
 ├── command_dispatcher.cpp
 ├── commands.json
-└── resources/
-    └── resources.qrc
+├── nlohmann/
+│   └── json.hpp
+├── resources/
+│   ├── icon.ico
+│   └── resources.qrc
+└── build/
 ```
 
 ## Template Configuration
