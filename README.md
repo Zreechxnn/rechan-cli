@@ -41,9 +41,14 @@ cmake --build . --config Release
 ```
 
 ## 🛣️ Add `rechan.exe` to Your System PATH
-
 To use `rechan` from anywhere in your terminal (CMD, PowerShell, or Git Bash), you need to place `rechan.exe` in a folder that is registered in your system's `PATH`.
 
+
+## Usage
+```bash
+rechan --help
+```
+to bring up
 ```
 Rechan CLI 1.2.0
 Usage: rechan <command> [args]
