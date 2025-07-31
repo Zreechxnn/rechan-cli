@@ -40,7 +40,9 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE="path/to/vcpkg/scripts/buildsystems/vcpkg.cmake"
 cmake --build . --config Release
 ```
 
-## Usage
+## 🛣️ Add `rechan.exe` to Your System PATH
+
+To use `rechan` from anywhere in your terminal (CMD, PowerShell, or Git Bash), you need to place `rechan.exe` in a folder that is registered in your system's `PATH`.
 
 ```
 Rechan CLI 1.2.0
