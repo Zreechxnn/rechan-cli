@@ -1,5 +1,5 @@
 <h1 align="left">
-  <img src="https://k.top4top.io/p_3499y03fo1.png" alt="Rechan CLI Logo" width="48" height="48" style="vertical-align: middle; margin-right: 10px;">
+  <img src="https://k.top4top.io/p_3499y03fo1.png" alt="Rechan CLI Logo" width="40" height="40" style="position: relative; top: 6px; margin-right: 10px;">
   Rechan CLI
 </h1>
 
