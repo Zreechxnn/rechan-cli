@@ -1,6 +1,6 @@
 # Rechan CLI
 
-![Rechan CLI Logo](icon.ico)
+![Rechan CLI Logo](https://raw.githubusercontent.com/Zreechxnn/rechan-cli/main/resources/icon.ico)
 
 **Rechan CLI** is a powerful command-line tool designed to streamline your development workflow. It simplifies project creation, compilation, and execution for multiple languages and frameworks.
 
