@@ -1,167 +1,161 @@
-<h1 align="left">
-  <img src="https://k.top4top.io/p_3499y03fo1.png" alt="Rechan CLI Logo" width="40" height="40" style="position: relative; top: -6px; margin-right: 10px;">
-  Rechan CLI
-</h1>
+# Rechan CLI
 
-**Rechan CLI** is a powerful command-line tool designed to streamline your development workflow. It simplifies project creation, compilation, and execution for multiple languages and frameworks.
+![Qt-based CLI Tool](https://img.shields.io/badge/Qt-6.7.0-green)
+![C++17](https://img.shields.io/badge/C%2B%2B-17-blue)
+![Version](https://img.shields.io/badge/version-1.2.0-orange)
 
-## Features
+Rechan CLI is a Qt-based command-line tool for creating, compiling, and managing various programming projects with easy configuration.
 
-- 🚀 **Multi-language Support**: Create projects in C++, Python, PHP, Laravel, and Drogon
-- ⚡️ **Smart Compilation**: Automatic project detection and compilation
-- 🌐 **Built-in Web Server**: Run development servers with one command
-- 🔧 **Template System**: Pre-configured templates for various project types
-- 📦 **Dependency Management**: Integrated package handling
+## Key Features
+
+- 🛠️ **Create new projects** from ready-to-use templates:
+  - C++
+  - SDL2
+  - PHP
+  - Python
+  - Laravel
+  - Drogon
+- ⚙️ **Automatic compilation** with project-specific configurations
+- 🚀 **Run development servers** for various frameworks
+- 📦 **Template management** through centralized JSON configuration
+- 💡 **Graphical UI popups** for notifications
 
 ## Installation
 
 ### Prerequisites
-- Qt5 (minimum 5.15)
-- C++17 compatible compiler
-- CMake (minimum 3.15)
-- Python 3.x (for Python projects)
+- [CMake](https://cmake.org/) (v3.15+)
+- [Qt](https://www.qt.io/) (v6.7.0)
+- [vcpkg](https://vcpkg.io/) (for dependency management)
+- C++ compiler (MSVC/GCC/Clang)
 
-### Build from Source
+### Build Steps
 ```bash
-git clone https://github.com/yourusername/rechan-cli.git
+git clone https://github.com/username/rechan-cli.git
 cd rechan-cli
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-cmake --build .
+mkdir build
+cd build
+cmake .. -DCMAKE_TOOLCHAIN_FILE="path/to/vcpkg/scripts/buildsystems/vcpkg.cmake" \
+         -DCMAKE_PREFIX_PATH="path/to/Qt/6.7.0/msvc2019_64"
+cmake --build . --config Release
 ```
 
-### Windows Installer
-Download the latest installer from our [Releases page](https://github.com/yourusername/rechan-cli/releases)
+## Usage
 
-## Quick Start
+```
+Rechan CLI 1.2.0
+Usage: rechan <command> [args]
 
-### Create a New Project
+Available commands:
+  create <type> <name> [options]
+    types: laravel, drogon, controller, cpp, sdl, php, python
+    options:
+      --laravel-version <version>  Specify Laravel version
+      --project <path>             Project path (for Drogon controllers)
+
+  compile [dir]       Compile project
+  init <type> <name>  Initialize project components
+  serve <type> <port> Start development server
+  --version           Show version
+```
+
+### Command Examples
+
+**Create SDL2 project:**
 ```bash
-rechan create python my_python_app
-rechan create drogon my_web_api
-rechan create controller UserController --project my_web_api
+rechan create sdl my_sdl_game
 ```
 
-### Compile Your Project
+**Compile C++ project:**
 ```bash
-rechan compile my_web_api
+rechan compile ./my_cpp_project
 ```
 
-### Run a Development Server
+**Run PHP server:**
 ```bash
-rechan serve python  # Runs Python project
-rechan serve drogon  # Runs Drogon project on default port
+rechan serve php 8080
 ```
 
-## Command Reference
-
-### `rechan create <type> <name> [options]`
-Creates a new project of specified type
-
-| Type        | Description                  | Options                     |
-|-------------|------------------------------|-----------------------------|
-| `python`    | Python application           |                             |
-| `drogon`    | Drogon C++ web framework     |                             |
-| `controller`| Drogon controller            | `--project` (required)      |
-| `laravel`   | Laravel PHP framework        | `--laravel-version`         |
-| `cpp`       | Basic C++ project            |                             |
-| `sdl`       | SDL2 multimedia project      |                             |
-| `php`       | Simple PHP project           |                             |
-
-### `rechan compile [directory]`
-Compiles the project in the specified directory (current directory by default)
-
-### `rechan serve <type> <port>`
-Runs a development server for the specified project type
-
-### `rechan --version`
-Shows CLI version information
-
-### `rechan --help`
-Displays help information and command usage
-
-## Project Templates
-
-Rechan CLI comes with pre-configured templates for various project types:
-
-### Python Template
-```python
-print("Hello, Rechan Python!")
+**Create Drogon controller:**
+```bash
+rechan init controller MyController
 ```
 
-### Drogon Template (CMakeLists.txt)
-```cmake
-cmake_minimum_required(VERSION 3.15)
-project(my_project)
-
-set(CMAKE_CXX_STANDARD 17)
-
-find_package(Drogon REQUIRED)
-
-add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} PRIVATE Drogon::Drogon)
+**Create Laravel project:**
+```bash
+rechan create laravel my_app --laravel-version=10.*
 ```
 
-### SDL Template (main.cpp)
-```cpp
-#include <SDL.h>
+## Project Structure
 
-int main() {
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow("Rechan SDL", 
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-        800, 600, 0);
-    
-    // Your game loop here
-    
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-    return 0;
-}
+```
+rechan-cli/
+├── CMakeLists.txt
+├── build.bat
+├── main.cpp
+├── command_dispatcher.hpp
+├── command_dispatcher.cpp
+├── commands.json
+└── resources/
+    └── resources.qrc
 ```
 
-## Configuration
+## Template Configuration
 
-Rechan CLI uses a `commands.json` file for configuration. The CLI searches for this file in:
-1. Embedded application resources
-2. Executable directory
-3. Current working directory
+Project templates are configured in `commands.json`:
 
-Example configuration:
 ```json
 {
   "templates": {
-    "python": {
+    "cpp": {
       "files": {
-        "main.py": "print(\"Hello, Rechan Python!\")",
-        "requirements.txt": ""
+        "CMakeLists.txt": "...",
+        "main.cpp": "..."
+      }
+    },
+    "sdl": {
+      "files": {
+        "CMakeLists.txt": "...",
+        "main.cpp": "..."
       }
     }
   },
   "commands": {
     "compile": {
-      "python": "",
-      "drogon": "cmake -B build && cmake --build build"
+      "default": "cmake -B build && cmake --build build",
+      "sdl": "cmake -B build -DCMAKE_TOOLCHAIN_FILE=...",
+      "laravel": "cd {{name}} && composer install && npm install"
+    },
+    "serve": {
+      "php": "php -S localhost:{{port}}",
+      "laravel": "php artisan serve --port={{port}}"
     }
   }
 }
 ```
 
+## Project Support Matrix
+
+| Project Type | Create | Compile | Serve |
+|-------------|------|-----------|-------|
+| C++         | ✅   | ✅        | ❌    |
+| SDL2        | ✅   | ✅        | ❌    |
+| PHP         | ✅   | ❌        | ✅    |
+| Python      | ✅   | ❌        | ✅    |
+| Laravel     | ✅   | ✅        | ✅    |
+| Drogon      | ✅   | ✅        | ✅    |
+
 ## Contributing
 
-We welcome contributions! Please follow these steps:
-
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/awesome-feature`)
-3. Commit your changes (`git commit -am 'Add awesome feature'`)
-4. Push to the branch (`git push origin feature/awesome-feature`)
-5. Open a pull request
+2. Create feature branch (`git checkout -b new-feature`)
+3. Commit changes (`git commit -am 'Add new feature'`)
+4. Push to branch (`git push origin new-feature`)
+5. Create Pull Request
 
 ## License
 
-Rechan CLI is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-**Rechan CLI** - Accelerate your development workflow!  
-Version 1.2.0 | [Documentation](docs) | [Report Issue](issues)
+Built with ❤️ using Qt and C++
