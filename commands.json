@@ -1,0 +1,49 @@
+{
+  "templates": {
+    "cpp": {
+      "files": {
+        "CMakeLists.txt": "cmake_minimum_required(VERSION 3.15)\nproject({{name}})\nset(CMAKE_CXX_STANDARD 17)\nadd_executable({{name}} main.cpp)",
+        "main.cpp": "#include <iostream>\n\nint main() {\n    std::cout << \"Rechan ready!\" << std::endl;\n    return 0;\n}"
+      }
+    },
+    "sdl": {
+      "files": {
+        "CMakeLists.txt": "cmake_minimum_required(VERSION 3.15)\nproject({{name}})\nset(CMAKE_CXX_STANDARD 17)\n\nfind_package(SDL2 REQUIRED)\nfind_package(SDL2_ttf REQUIRED)\n\nadd_executable({{name}} main.cpp)\n\ntarget_include_directories({{name}} PRIVATE ${SDL2_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIRS})\ntarget_link_libraries({{name}} PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2_ttf::SDL2_ttf)",
+        "main.cpp": "#include <SDL.h>\n#include <SDL_ttf.h>\n\nint main() {\n    if (SDL_Init(SDL_INIT_VIDEO) < 0) return 1;\n    if (TTF_Init() < 0) return 1;\n    \n    SDL_Window* window = SDL_CreateWindow(\"Rechan SDL\", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);\n    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);\n    \n    SDL_Delay(2000);\n    \n    SDL_DestroyRenderer(renderer);\n    SDL_DestroyWindow(window);\n    TTF_Quit();\n    SDL_Quit();\n    return 0;\n}"
+      }
+    },
+    "php": {
+      "files": {
+        "index.php": "<?php echo \"Rechan PHP Server\"; ?>"
+      }
+    },
+    "python": {
+      "files": {
+        "main.py": "print(\"Hello, Rechan Python!\")",
+        "requirements.txt": ""
+      }
+    },
+    "drogon": {
+      "files": {
+        "CMakeLists.txt": "cmake_minimum_required(VERSION 3.15)\nproject({{name}})\nset(CMAKE_CXX_STANDARD 17)\n\nfind_package(Drogon REQUIRED)\n\nadd_executable({{name}} main.cpp)\ntarget_link_libraries({{name}} PRIVATE Drogon::Drogon)"
+      }
+    }
+  },
+  "commands": {
+    "compile": {
+      "default": "cmake -B build && cmake --build build",
+      "sdl": "cmake -B build -DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static && cmake --build build",
+      "laravel": "cd {{name}} && composer install && npm install",
+      "drogon": "cmake -B build && cmake --build build"
+    },
+    "serve": {
+      "php": "php -S localhost:{{port}}",
+      "laravel": "php artisan serve --port={{port}}",
+      "python": "python main.py",
+      "drogon": "./build/{{name}}"
+    },
+    "drogon_ctl": {
+      "create_controller": "cd controllers && drogon_ctl create controller {{name}}"
+    }
+  }
+}
