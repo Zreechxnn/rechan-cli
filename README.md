@@ -1,6 +1,7 @@
-# Rechan CLI
-
-![Rechan CLI Logo](https://k.top4top.io/p_3499y03fo1.png)
+<h1 align="left">
+  <img src="https://k.top4top.io/p_3499y03fo1.png" alt="Rechan CLI Logo" width="48" height="48" style="vertical-align: middle; margin-right: 10px;">
+  Rechan CLI
+</h1>
 
 **Rechan CLI** is a powerful command-line tool designed to streamline your development workflow. It simplifies project creation, compilation, and execution for multiple languages and frameworks.
 
