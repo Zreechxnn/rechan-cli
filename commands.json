@@ -37,7 +37,7 @@
       "drogon": "cmake -B build && cmake --build build"
     },
     "serve": {
-      "php": "php -S localhost:{{port}}",
+      "php": "php -S 127.0.0.1:{{port}}",
       "laravel": "php artisan serve --port={{port}}",
       "python": "python main.py",
       "drogon": "./build/{{name}}"
