@@ -1,4 +1,4 @@
-# Rechan CLI
+# Rechan CLI 
 
 ![Qt-based CLI Tool](https://img.shields.io/badge/Qt-5.0.0-green)
 ![C++17](https://img.shields.io/badge/C%2B%2B-17-blue)
