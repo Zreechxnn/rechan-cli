@@ -1,5 +1,50 @@
 {
   "templates": {
+    "laravel": {
+      "create_command": "composer create-project --prefer-dist --no-scripts --ignore-platform-req=ext-sqlite3 --ignore-platform-req=ext-fileinfo --no-progress laravel/laravel{{version}} {{name}}",
+      "post_create": [
+        "cd {{name}} && if not exist .env copy .env.example .env",
+        "cd {{name}} && php artisan key:generate --force"
+      ]
+    },
+    
+    "react": {
+      "create_command": "npx create-react-app{{version}} {{name}}"
+    },
+    "vue": {
+      "create_command": "npm create vue@latest{{version}} {{name}}"
+    },
+    "angular": {
+      "create_command": "npx @angular/cli{{version}} new {{name}}"
+    },
+    "svelte": {
+      "create_command": "npm create svelte@latest{{version}} {{name}}"
+    },
+    "next": {
+      "create_command": "npx create-next-app{{version}} {{name}}"
+    },
+    "nuxt": {
+      "create_command": "npx nuxi{{version}} init {{name}}"
+    },
+    "express": {
+      "create_command": "npx express-generator{{version}} {{name}}"
+    },
+    "nest": {
+      "create_command": "npx @nestjs/cli{{version}} new {{name}}"
+    },
+    "astro": {
+      "create_command": "npm create astro{{version}} {{name}}"
+    },
+    "remix": {
+      "create_command": "npx create-remix{{version}} {{name}}"
+    },
+    "solid": {
+      "create_command": "npx degit solidjs/templates/{{version}} {{name}}"
+    },
+    "qwik": {
+      "create_command": "npm create qwik{{version}} {{name}}"
+    },
+    
     "cpp": {
       "files": {
         "CMakeLists.txt": "cmake_minimum_required(VERSION 3.15)\nproject({{name}})\nset(CMAKE_CXX_STANDARD 17)\nadd_executable({{name}} main.cpp)",
@@ -34,13 +79,37 @@
       "default": "cmake -B build && cmake --build build",
       "sdl": "cmake -B build -DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static && cmake --build build",
       "laravel": "cd {{name}} && composer install && npm install",
-      "drogon": "cmake -B build && cmake --build build"
+      "drogon": "cmake -B build && cmake --build build",
+      "react": "cd {{name}} && npm install",
+      "vue": "cd {{name}} && npm install",
+      "angular": "cd {{name}} && npm install",
+      "svelte": "cd {{name}} && npm install",
+      "next": "cd {{name}} && npm install",
+      "nuxt": "cd {{name}} && npm install",
+      "express": "cd {{name}} && npm install",
+      "nest": "cd {{name}} && npm install",
+      "astro": "cd {{name}} && npm install",
+      "remix": "cd {{name}} && npm install",
+      "solid": "cd {{name}} && npm install",
+      "qwik": "cd {{name}} && npm install"
     },
     "serve": {
-      "php": "php -S localhost:{{port}}",
+      "php": "php -S 127.0.0.1:{{port}}",
       "laravel": "php artisan serve --port={{port}}",
       "python": "python main.py",
-      "drogon": "./build/{{name}}"
+      "drogon": "./build/{{name}}",
+      "react": "cd {{name}} && npm start",
+      "vue": "cd {{name}} && npm run dev",
+      "angular": "cd {{name}} && ng serve --port {{port}}",
+      "svelte": "cd {{name}} && npm run dev",
+      "next": "cd {{name}} && npm run dev -- -p {{port}}",
+      "nuxt": "cd {{name}} && npm run dev -- --port {{port}}",
+      "express": "cd {{name}} && npm start",
+      "nest": "cd {{name}} && npm run start",
+      "astro": "cd {{name}} && npm run dev -- --port {{port}}",
+      "remix": "cd {{name}} && npm run dev",
+      "solid": "cd {{name}} && npm run dev",
+      "qwik": "cd {{name}} && npm start"
     },
     "drogon_ctl": {
       "create_controller": "cd controllers && drogon_ctl create controller {{name}}"

@@ -69,47 +69,56 @@ json CommandDispatcher::loadConfig() {
 void CommandDispatcher::create(const std::string& type, const std::string& name, const std::string& version) {
     json config = loadConfig();
 
-    if (type.find("laravel") == 0) {
-        std::string versionPart = "";
-        size_t colonPos = type.find(':');
-        if (colonPos != std::string::npos) {
-            versionPart = type.substr(colonPos + 1);
-        }
+    // Ekstrak versi dari type jika menggunakan format "framework:versi"
+    std::string actualType = type;
+    std::string actualVersion = version;
+    
+    size_t colonPos = type.find(':');
+    if (colonPos != std::string::npos) {
+        actualType = type.substr(0, colonPos);
+        actualVersion = type.substr(colonPos + 1);
+    }
 
-        if (!version.empty()) {
-            versionPart = version;
-        }
+    // Jika versi diberikan melalui parameter, utamakan parameter
+    if (!version.empty()) {
+        actualVersion = version;
+    }
 
-        // Build create-project command
-        std::string command = "composer create-project --prefer-dist --no-scripts "
-                            "--ignore-platform-req=ext-sqlite3 --ignore-platform-req=ext-fileinfo --no-progress laravel/laravel";
-        if (!versionPart.empty()) {
-            command += ":" + versionPart;
-        }
-        command += " " + name;
+    if (!config.contains("templates") || !config["templates"].contains(actualType)) {
+        throw std::runtime_error("Template not found for type: " + actualType);
+    }
+
+    auto& templateConfig = config["templates"][actualType];
+
+    // Handle templates with create_command
+    if (templateConfig.contains("create_command")) {
+        std::string command = templateConfig["create_command"].get<std::string>();
+        
+        // Format versi untuk package manager
+        std::string versionSpec = actualVersion.empty() ? "" : "@" + actualVersion;
+        replaceAll(command, "{{name}}", name);
+        replaceAll(command, "{{version}}", versionSpec);
+        
         executeCommand(command);
 
-        // Laravel setup: copy .env and generate key
-        std::string setupCmd =
-            "cd " + name + " && "
-            "if not exist .env copy .env.example .env && "
-            "php artisan key:generate --force";
-        executeCommand(setupCmd);
-
+        // Jalankan post_create commands jika ada
+        if (templateConfig.contains("post_create")) {
+            for (auto& cmd : templateConfig["post_create"]) {
+                std::string postCmd = cmd.get<std::string>();
+                replaceAll(postCmd, "{{name}}", name);
+                executeCommand(postCmd);
+            }
+        }
         return;
     }
 
-
-    if (!config.contains("templates") || !config["templates"].contains(type)) {
-        throw std::runtime_error("Template not found for type: " + type);
-    }
-
+    // Default template-based creation
     QDir projectDir(QString::fromStdString(name));
     if (!projectDir.mkpath(".")) {
         throw std::runtime_error("Failed to create project directory: " + name);
     }
 
-    auto& files = config["templates"][type]["files"];
+    auto& files = templateConfig["files"];
     for (auto& [filename, content] : files.items()) {
         QString filePath = projectDir.filePath(QString::fromStdString(filename));
         QFileInfo fileInfo(filePath);
