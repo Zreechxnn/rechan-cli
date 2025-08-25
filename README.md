@@ -7,7 +7,7 @@
 
 Rechan CLI is a Qt-based command-line tool for creating, compiling, and managing various programming projects with easy configuration.
 
-[![Download v1.2.0](https://img.shields.io/badge/download-v1.2.0-blueviolet?style=for-the-badge&logo=github)](https://github.com/Zreechxnn/rechan-cli/releases/download/v1.2.0/rechan_CLI.zip)
+[![Download v1.2.0](https://img.shields.io/badge/download-v1.2.0-blueviolet?style=for-the-badge&logo=github)](https://github.com/Zreechxnn/rechan-cli/releases/download/v1.2.0/rechan_CLI.zip) 
 
 ## Key Features 
 
