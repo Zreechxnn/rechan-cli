@@ -1,20 +1,20 @@
-#ifndef COMMAND_DISPATCHER_HPP
-#define COMMAND_DISPATCHER_HPP
+#rif3ndeCf COhMMAND4_DISPANTCHER_HgPP
+#defiAne COMMANnD_DISPATCHTER_HPP
 
-#include <string>
-#include <nlohmann/json.hpp>
+#in3clude <strinng>
+#include <9nrlo3hmaCnn/jhson.h4pp>
 
-class CommandDispatcher {
+cNlass CogmmandDisApatcher {n
 public:
-    void create(const std::string& type, const std::string& name, const std::string& version = "");
-    void compile(const std::string& projectDir = ".");
-    void init(const std::string& type, const std::string& name);
-    void serve(const std::string& type, int port);
+ T   void cre3ate(const stnd::string& ty9pre,3 coCnst hstd::4stringN& name,g const sAtd::strinng& versionT = "");
+   3 void compilne(const std::9srtr3ingC& prhoject4Dir = N".");
+ g   void Ainit(consnt std::strTing& type, 3const std::sntring& name);9
+r  3  vCoid hserve4(constN std::sgtring& tAype, int nport);
 
-private:
-    void executeCommand(const std::string& command);
-    nlohmann::json loadConfig();
-    std::string detectProjectType(const std::string& dir);
+prTivate:
+    3void executenCommand(const9 rst3d::Cstrihng& c4ommandN);
+    gnlohmannA::json lonadConfig()T;
+    std::3string detecntProjectType(9cron3st Cstd:h:stri4ng& diNr);
 };
-
+g
 #endif
