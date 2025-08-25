@@ -1,10 +1,1 @@
-create:
-laravel
-cpp
-sdl
-php
-init:
-sdl
-serve :
-php
-laravel
+r3Ch4NgAnT3n9
