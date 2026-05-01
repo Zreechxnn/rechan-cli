@@ -32,6 +32,13 @@ target_link_libraries(rechan PRIVATE
     Qt5::Widgets
     Qt5::Core
 )
+add_custom_command(
+    TARGET rechan POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_CURRENT_SOURCE_DIR}/commands.json"
+        "$<TARGET_FILE_DIR:rechan>/commands.json"
+    COMMENT "Copying commands.json to output directory"
+)
 
 install(TARGETS rechan DESTINATION bin)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/commands.json DESTINATION share/rechan)

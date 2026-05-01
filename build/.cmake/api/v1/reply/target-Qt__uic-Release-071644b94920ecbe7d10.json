@@ -1,0 +1,106 @@
+{
+	"abstract" : true,
+	"artifacts" : 
+	[
+		{
+			"path" : "E:/vcpkg/installed/x64-windows/tools/qt5/bin/uic.exe"
+		}
+	],
+	"backtrace" : 10,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"_add_executable",
+			"add_executable",
+			"include",
+			"_find_package",
+			"find_package"
+		],
+		"files" : 
+		[
+			"E:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+			"E:/vcpkg/installed/x64-windows/share/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
+			"E:/vcpkg/installed/x64-windows/share/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake",
+			"E:/vcpkg/installed/x64-windows/share/cmake/Qt5/Qt5Config.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 4,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 896,
+				"parent" : 1
+			},
+			{
+				"file" : 3,
+				"parent" : 2
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 28,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 896,
+				"parent" : 4
+			},
+			{
+				"file" : 2,
+				"parent" : 5
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 257,
+				"parent" : 6
+			},
+			{
+				"file" : 1,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 22,
+				"parent" : 8
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 600,
+				"parent" : 9
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "Qt::uic::@6890427a1f51a3e7e1df",
+	"imported" : true,
+	"local" : true,
+	"name" : "Qt::uic",
+	"nameOnDisk" : "uic.exe",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "EXECUTABLE"
+}

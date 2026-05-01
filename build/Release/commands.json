@@ -1,0 +1,94 @@
+{
+  "templates": {
+    "laravel": {
+      "create_command": "composer create-project --prefer-dist laravel/laravel{{version}} {{name}}",
+      "post_create": [
+        "cd {{name}} && if not exist .env copy .env.example .env",
+        "cd {{name}} && php artisan key:generate --force"
+      ]
+    },
+    "drogon": {
+      "create_command": "drogon_ctl create project {{name}}"
+    },
+    "drogon:controller": {
+      "create_command": "drogon_ctl create controller {{name}}"
+    },
+    "react": { "create_command": "npx create-react-app{{version}} {{name}}" },
+    "vue": { "create_command": "npm create vue@latest{{version}} {{name}}" },
+    "next": { "create_command": "npx create-next-app{{version}} {{name}}" },
+    "cpp": {
+      "files": {
+        "CMakeLists.txt": "cmake_minimum_required(VERSION 3.16)\nproject({{name}})\n\nset(CMAKE_CXX_STANDARD 17)\nset(CMAKE_CXX_STANDARD_REQUIRED ON)\n\nadd_executable({{name}} main.cpp)",
+        "main.cpp": "#include <iostream>\n\nint main() {\n    std::cout << \"Rechan ready!\" << std::endl;\n    return 0;\n}"
+      }
+    },
+    "sdl": {
+      "files": {
+        "CMakeLists.txt": "cmake_minimum_required(VERSION 3.15)\nproject({{name}})\nset(CMAKE_CXX_STANDARD 17)\n\nfind_package(SDL2 REQUIRED)\nfind_package(SDL2_ttf REQUIRED)\n\nadd_executable({{name}} main.cpp)\n\ntarget_include_directories({{name}} PRIVATE ${SDL2_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIRS})\ntarget_link_libraries({{name}} PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2_ttf::SDL2_ttf)",
+        "main.cpp": "#include <SDL.h>\n#include <SDL_ttf.h>\n\nint main(int argc, char* argv[]) {\n    if (SDL_Init(SDL_INIT_VIDEO) < 0) return 1;\n    if (TTF_Init() < 0) return 1;\n    \n    SDL_Window* window = SDL_CreateWindow(\"Rechan SDL\", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);\n    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);\n    \n    SDL_Delay(2000);\n    \n    SDL_DestroyRenderer(renderer);\n    SDL_DestroyWindow(window);\n    TTF_Quit();\n    SDL_Quit();\n    return 0;\n}"
+      }
+    },
+    "php": { "files": { "index.php": "<?php\nphpinfo();\n?>" } },
+    "python": {
+      "files": {
+        "main.py": "def main():\n    print(\"Hello from Rechan Python!\")\n\nif __name__ == \"__main__\":\n    main()\n",
+        "requirements.txt": ""
+      }
+    },
+      "iot:wifi": {
+      "files": {
+        "{{name}}.ino": "#include <ESP8266WiFi.h>\n\nconst char* ssid = \"YOUR_WIFI_SSID\";\nconst char* password = \"YOUR_WIFI_PASSWORD\";\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(LED_BUILTIN, OUTPUT);\n  \n  WiFi.begin(ssid, password);\n  Serial.print(\"Connecting to WiFi\");\n  \n  while (WiFi.status() != WL_CONNECTED) {\n    delay(500);\n    Serial.print(\".\");\n    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));\n  }\n  \n  Serial.println(\"\\nConnected! IP address: \" + WiFi.localIP().toString());\n  digitalWrite(LED_BUILTIN, HIGH);\n}\n\nvoid loop() {\n  // Your WiFi code here\n  delay(1000);\n}"
+      }
+    },
+    "iot:servo": {
+      "files": {
+        "{{name}}.ino": "#include <Servo.h>\n\nServo myservo;\nint pos = 0;\n\nvoid setup() {\n  Serial.begin(115200);\n  myservo.attach(D1);  // attaches the servo on pin D1\n  Serial.println(\"Servo controller ready!\");\n}\n\nvoid loop() {\n  for (pos = 0; pos <= 180; pos += 1) {\n    myservo.write(pos);\n    delay(15);\n  }\n  for (pos = 180; pos >= 0; pos -= 1) {\n    myservo.write(pos);\n    delay(15);\n  }\n}"
+      }
+    },
+    "iot:led": {
+      "files": {
+        "{{name}}.ino": "void setup() {\n  Serial.begin(115200);\n  pinMode(LED_BUILTIN, OUTPUT);\n  Serial.println(\"LED controller ready!\");\n}\n\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH);\n  Serial.println(\"LED ON\");\n  delay(1000);\n  digitalWrite(LED_BUILTIN, LOW);\n  Serial.println(\"LED OFF\");\n  delay(1000);\n}"
+      }
+    },
+    "iot:rfid": {
+      "files": {
+        "{{name}}.ino": "#include <SPI.h>\n#include <MFRC522.h>\n\n#define RST_PIN D3\n#define SS_PIN D4\n\nMFRC522 mfrc522(SS_PIN, RST_PIN);\n\nvoid setup() {\n  Serial.begin(115200);\n  SPI.begin();\n  mfrc522.PCD_Init();\n  Serial.println(\"RFID reader ready!\");\n  Serial.println(\"Scan your RFID card...\");\n}\n\nvoid loop() {\n  if (!mfrc522.PICC_IsNewCardPresent()) return;\n  if (!mfrc522.PICC_ReadCardSerial()) return;\n  \n  Serial.print(\"Card UID: \");\n  for (byte i = 0; i < mfrc522.uid.size; i++) {\n    Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? \" 0\" : \" \");\n    Serial.print(mfrc522.uid.uidByte[i], HEX);\n  }\n  Serial.println();\n  \n  mfrc522.PICC_HaltA();\n  delay(1000);\n}"
+      }
+    },
+    "iot:dht": {
+      "files": {
+        "{{name}}.ino": "#include <DHT.h>\n\n#define DHT_PIN D2\n#define DHT_TYPE DHT11\n\nDHT dht(DHT_PIN, DHT_TYPE);\n\nvoid setup() {\n  Serial.begin(115200);\n  dht.begin();\n  Serial.println(\"DHT11 sensor ready!\");\n}\n\nvoid loop() {\n  float temp = dht.readTemperature();\n  float humidity = dht.readHumidity();\n  \n  if (isnan(temp) || isnan(humidity)) {\n    Serial.println(\"Failed to read from DHT sensor!\");\n  } else {\n    Serial.print(\"Temperature: \");\n    Serial.print(temp);\n    Serial.print(\"°C, Humidity: \");\n    Serial.print(humidity);\n    Serial.println(\"%\");\n  }\n  \n  delay(2000);\n}"
+      }
+    },
+    "iot:button": {
+      "files": {
+        "{{name}}.ino": "const int buttonPin = D2;\nconst int ledPin = LED_BUILTIN;\n\nint buttonState = 0;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(buttonPin, INPUT_PULLUP);\n  pinMode(ledPin, OUTPUT);\n  Serial.println(\"Button controller ready!\");\n}\n\nvoid loop() {\n  buttonState = digitalRead(buttonPin);\n  \n  if (buttonState == LOW) {\n    digitalWrite(ledPin, HIGH);\n    Serial.println(\"Button PRESSED\");\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n  \n  delay(50);\n}"
+      }
+    }
+  },
+  "commands": {
+    "compile": {
+      "default": "cmake -B build -S . && cmake --build build",
+      "cpp": "cmake -B build -S . && cmake --build build",
+      "sdl": "cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake && cmake --build build",
+      "drogon": "cmake -B build -S . && cmake --build build",
+      "laravel": "composer install && npm install",
+      "nodejs": "npm install"
+    },
+    "serve": {
+      "php": "php -S 127.0.0.1:{{port}}",
+      "laravel": "php artisan serve --port={{port}}",
+      "react": "npm start",
+      "vue": "npm run dev",
+      "next": "npm run dev -- -p {{port}}",
+      "drogon": "build/{{name}}"
+    },
+    "run": {
+      "cpp": "build/{{name}}",
+      "sdl": "build/{{name}}",
+      "drogon": "build/{{name}}",
+      "python": "python main.py",
+      "nodejs": "node index.js"
+    }
+  }
+}

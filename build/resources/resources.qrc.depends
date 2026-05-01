@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../commands.json</file>
+        <file>icon.ico</file>
+    </qresource>
+</RCC>

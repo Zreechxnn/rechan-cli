@@ -1,0 +1,106 @@
+{
+	"abstract" : true,
+	"artifacts" : 
+	[
+		{
+			"path" : "E:/vcpkg/installed/x64-windows/debug/plugins/styles/qwindowsvistastyled.dll"
+		}
+	],
+	"backtrace" : 10,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"_add_library",
+			"add_library",
+			"include",
+			"_find_package",
+			"find_package"
+		],
+		"files" : 
+		[
+			"E:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+			"E:/vcpkg/installed/x64-windows/share/cmake/Qt5Widgets/Qt5Widgets_QWindowsVistaStylePlugin.cmake",
+			"E:/vcpkg/installed/x64-windows/share/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake",
+			"E:/vcpkg/installed/x64-windows/share/cmake/Qt5/Qt5Config.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 4,
+				"line" : 11,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 896,
+				"parent" : 1
+			},
+			{
+				"file" : 3,
+				"parent" : 2
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 28,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 896,
+				"parent" : 4
+			},
+			{
+				"file" : 2,
+				"parent" : 5
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 253,
+				"parent" : 6
+			},
+			{
+				"file" : 1,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 2,
+				"parent" : 8
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 641,
+				"parent" : 9
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "Qt5::QWindowsVistaStylePlugin::@6890427a1f51a3e7e1df",
+	"imported" : true,
+	"local" : true,
+	"name" : "Qt5::QWindowsVistaStylePlugin",
+	"nameOnDisk" : "qwindowsvistastyled.dll",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "MODULE_LIBRARY"
+}
