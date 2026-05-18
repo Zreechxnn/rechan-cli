@@ -1,5 +1,6 @@
 #include "command_dispatcher.hpp"
 #include <stdexcept>
+#include <QCoreApplication>
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
@@ -37,23 +38,25 @@ void CommandDispatcher::executeCommand(const std::string& command, const fs::pat
 
 // Loads configuration from commands.json with a fallback mechanism
 json CommandDispatcher::loadConfig() {
-    fs::path exePath = "."; // A sensible default
-    // This part is tricky without Qt's application path. We'll assume it's findable.
-    // For a real app, you'd use a more robust way to find the executable path.
-    // Let's check current dir, then maybe a system-wide location.
-    
     fs::path configName = "commands.json";
+    
+    // 1. Cek di direktori kerja saat ini (Local path)
     fs::path localPath = configName;
-    // fs::path exePath = QCoreApplication::applicationDirPath(); // If using Qt
-    // fs::path globalPath = "/etc/rechan/commands.json"; // Linux example
-
     if (fs::exists(localPath)) {
         std::ifstream f(localPath);
         return json::parse(f);
     }
 
-    // Add more fallbacks here if needed (e.g., next to executable, user home dir)
-    throw std::runtime_error("Failed to load commands.json. Make sure it's in the current directory.");
+    // 2. Cek di direktori tempat rechan.exe berada (Executable path via Qt)
+    QString exeDir = QCoreApplication::applicationDirPath();
+    fs::path exePath = fs::path(exeDir.toStdString()) / configName;
+    if (fs::exists(exePath)) {
+        std::ifstream f(exePath);
+        return json::parse(f);
+    }
+
+    // Jika keduanya tidak ditemukan, lempar error dengan info lokasi pencarian
+    throw std::runtime_error("Failed to load commands.json. Make sure it's in the current directory or next to rechan.exe (" + exePath.string() + ").");
 }
 
 // Creates a new project based on templates
